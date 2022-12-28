@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const pages = ['Add Task', 'My Task', 'Completed Tasks'];
+const pages = ['Add Task', 'My Tasks', 'Completed Tasks'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Header() {
