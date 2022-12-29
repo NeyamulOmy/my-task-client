@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 const AddTask = () => {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const handleAddTask = (data) => {
         const imageHostKey = process.env.REACT_APP_imgbb_key
         const formData = new FormData();
@@ -24,7 +24,7 @@ const AddTask = () => {
                         description: data.description
                     }
 
-                    fetch('http://localhost:5000/mytasks', {
+                    fetch('https://my-task-server-three.vercel.app/mytasks', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -35,7 +35,7 @@ const AddTask = () => {
                         .then(result => {
                             console.log(result);
                             toast.success(`Task added successfully`)
-
+                            reset();
                         })
                 }
             })
@@ -44,19 +44,19 @@ const AddTask = () => {
         <div className="w-1/2 my-10 mx-auto">
             <form onSubmit={handleSubmit(handleAddTask)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+                    <label className="block text-left text-gray-700 text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" {...register('title')} placeholder="Title" />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+                    <label className="block text-left text-gray-700 text-sm font-bold mb-2" htmlFor="image">
                         Image
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="image" type="file" placeholder="Image" accept='image/*' {...register('image')} />
                 </div>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                    <label className="block text-left text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                         Description
                     </label>
                     <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="description" type="text" placeholder="Description" {...register('description')} />

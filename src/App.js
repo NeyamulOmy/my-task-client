@@ -24,7 +24,7 @@ function App() {
         {
           path: '/My Tasks',
           element: <MyTasks></MyTasks>,
-          loader: () => fetch('http://localhost:5000/mytasks')
+          loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
 
         },
         {

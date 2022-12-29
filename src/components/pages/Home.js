@@ -1,5 +1,6 @@
 import { Button, TextField } from '@mui/material';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 const Home = () => {
     const handleEnter = (event) => {
@@ -10,7 +11,23 @@ const Home = () => {
 
     const handleSubmit = () => {
         const task = document.getElementById('taskField').value;
-        console.log(task)
+        const myTask = {
+            description: task
+        }
+        fetch('https://my-task-server-three.vercel.app/mytasks', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(myTask)
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                toast.success(`Task added successfully`);
+                document.getElementById('taskField').value = '';
+
+            })
     }
     return (
         <div className='my-10 mx-auto'>
