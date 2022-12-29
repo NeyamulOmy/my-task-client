@@ -7,6 +7,8 @@ import AddTask from './components/pages/AddTask';
 import MyTasks from './components/pages/MyTasks';
 import CompletedTasks from './components/pages/CompletedTasks';
 import { Toaster } from 'react-hot-toast';
+import Signup from './components/pages/SignUp';
+import Login from './components/pages/Login';
 function App() {
   const router = createBrowserRouter([
     {
@@ -24,12 +26,20 @@ function App() {
         {
           path: '/My Tasks',
           element: <MyTasks></MyTasks>,
-          loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
+          // loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
 
         },
         {
           path: '/Completed Tasks',
           element: <CompletedTasks></CompletedTasks>
+        },
+        {
+          path: '/signup',
+          element: <Signup></Signup>
+        },
+        {
+          path: '/login',
+          element: <Login></Login>
         }
       ]
     }
