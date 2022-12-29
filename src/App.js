@@ -6,7 +6,7 @@ import Home from './components/pages/Home';
 import AddTask from './components/pages/AddTask';
 import MyTasks from './components/pages/MyTasks';
 import CompletedTasks from './components/pages/CompletedTasks';
-
+import { Toaster } from 'react-hot-toast';
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,7 +23,9 @@ function App() {
         },
         {
           path: '/My Tasks',
-          element: <MyTasks></MyTasks>
+          element: <MyTasks></MyTasks>,
+          loader: () => fetch('http://localhost:5000/mytasks')
+
         },
         {
           path: '/Completed Tasks',
@@ -35,6 +37,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router}></RouterProvider>
+      <Toaster />
     </div>
   );
 }

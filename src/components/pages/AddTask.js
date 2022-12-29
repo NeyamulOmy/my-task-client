@@ -1,10 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 const AddTask = () => {
     const { register, handleSubmit } = useForm();
     const handleAddTask = (data) => {
-        const imageHostKey = '86d70bc72aebfc501add17b267d86940'
+        const imageHostKey = process.env.REACT_APP_imgbb_key
         const formData = new FormData();
         const image = data.image[0];
         formData.append('image', image)
@@ -17,6 +18,25 @@ const AddTask = () => {
             .then(imgData => {
                 if (imgData.success) {
                     console.log(imgData.data.url)
+                    const myTask = {
+                        title: data.title,
+                        image: imgData.data.url,
+                        description: data.description
+                    }
+
+                    fetch('http://localhost:5000/mytasks', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                        },
+                        body: JSON.stringify(myTask)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            toast.success(`Task added successfully`)
+
+                        })
                 }
             })
     }
