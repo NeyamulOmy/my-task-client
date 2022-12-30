@@ -46,7 +46,7 @@ const AddTask = () => {
             })
     }
     return (
-        <div className="w-1/2 my-20 mx-auto">
+        <div className="w-full md:w-3/4 lg:w-1/2 my-20 mx-auto">
             <form onSubmit={handleSubmit(handleAddTask)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label className="block text-left text-gray-700 text-sm font-bold mb-2" htmlFor="title">
