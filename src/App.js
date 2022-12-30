@@ -28,7 +28,7 @@ function App() {
         {
           path: '/My Tasks',
           element: <PrivateRoute><MyTasks></MyTasks></PrivateRoute>,
-          // loader: () => fetch('http://localhost:5000/mytasks')
+          // loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
 
         },
         {
@@ -46,7 +46,7 @@ function App() {
         {
           path: '/updatetask/:id',
           element: <UpdateTask></UpdateTask>,
-          loader: ({ params }) => fetch(`http://localhost:5000/mytasks/${params.id}`)
+          loader: ({ params }) => fetch(`https://my-task-server-three.vercel.app/mytasks/${params.id}`)
         }
       ]
     }

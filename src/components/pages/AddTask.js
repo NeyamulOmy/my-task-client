@@ -29,7 +29,7 @@ const AddTask = () => {
                         type: 'incomplete'
                     }
 
-                    fetch('http://localhost:5000/mytasks', {
+                    fetch('https://my-task-server-three.vercel.app/mytasks', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

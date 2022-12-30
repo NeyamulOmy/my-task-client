@@ -14,7 +14,7 @@ const UpdateTask = () => {
             title: data.title,
             description: data.description
         }
-        fetch(`http://localhost:5000/mytasks/${updateTask._id}`, {
+        fetch(`https://my-task-server-three.vercel.app/mytasks/${updateTask._id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json',

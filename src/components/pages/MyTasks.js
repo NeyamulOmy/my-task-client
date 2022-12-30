@@ -10,7 +10,7 @@ const MyTasks = () => {
         queryKey: ['myTask'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/mytasks?email=${user.email}`, {
+                const res = await fetch(`https://my-task-server-three.vercel.app/mytasks?email=${user.email}`, {
                     headers: {
 
                     }
@@ -26,7 +26,7 @@ const MyTasks = () => {
     const handleDelete = id => {
 
         console.log(id)
-        fetch(`http://localhost:5000/mytasks/${id}`, {
+        fetch(`https://my-task-server-three.vercel.app/mytasks/${id}`, {
             method: 'DELETE',
             headers: {
 
@@ -47,7 +47,7 @@ const MyTasks = () => {
     const handleComplete = (myTask) => {
         const id = myTask._id;
 
-        fetch(`http://localhost:5000/mytasks/${id}`, {
+        fetch(`https://my-task-server-three.vercel.app/mytasks/${id}`, {
             method: 'PUT',
             headers: {
 
