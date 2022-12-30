@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const pages = ['Add Task', 'My Tasks', 'Completed Tasks'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,22 +23,27 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Header() {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-
+    const { user, logOut, loading } = useContext(AuthContext);
+    console.log(user)
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-    };
+    // const handleOpenUserMenu = (event) => {
+    //     setAnchorElUser(event.currentTarget);
+    // };
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-    };
-
+    // const handleCloseUserMenu = () => {
+    //     setAnchorElUser(null);
+    // };
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.error(err))
+    }
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -126,8 +133,11 @@ function Header() {
                             </Button>
                         ))}
                     </Box>
+                    {
+                        user?.uid ? <><Avatar className=' mr-2 md:mr-5' src={user?.photoURL} alt={user?.displayName} /> <button onClick={handleLogOut}>Logout</button></> : <Link to={'login'}>Log in</Link>
+                    }
 
-                    <Box sx={{ flexGrow: 0 }}>
+                    {/* <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -155,7 +165,7 @@ function Header() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                    </Box>
+                    </Box> */}
                 </Toolbar>
             </Container>
         </AppBar>

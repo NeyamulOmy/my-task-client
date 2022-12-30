@@ -9,6 +9,7 @@ import CompletedTasks from './components/pages/CompletedTasks';
 import { Toaster } from 'react-hot-toast';
 import Signup from './components/pages/SignUp';
 import Login from './components/pages/Login';
+import PrivateRoute from './routes/PrivateRoute';
 function App() {
   const router = createBrowserRouter([
     {
@@ -17,21 +18,21 @@ function App() {
       children: [
         {
           path: '/',
-          element: <Home></Home>
+          element: <PrivateRoute><Home></Home></PrivateRoute>
         },
         {
           path: '/Add Task',
-          element: <AddTask></AddTask>
+          element: <PrivateRoute><AddTask></AddTask></PrivateRoute>
         },
         {
           path: '/My Tasks',
-          element: <MyTasks></MyTasks>,
+          element: <PrivateRoute><MyTasks></MyTasks></PrivateRoute>,
           // loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
 
         },
         {
           path: '/Completed Tasks',
-          element: <CompletedTasks></CompletedTasks>
+          element: <PrivateRoute><CompletedTasks></CompletedTasks></PrivateRoute>
         },
         {
           path: '/signup',
