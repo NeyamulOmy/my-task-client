@@ -102,7 +102,7 @@ const CompletedTasks = () => {
                                 <td><button onClick={() => handleNotComplete(completedTask)} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white my-2 px-2 border border-blue-500 hover:border-transparent rounded">Not complete</button><button onClick={() => { handleDelete(completedTask._id) }} className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white my-2 ml-2 px-2 border border-red-500 hover:border-transparent rounded">
                                     Delete
                                 </button></td>
-                                <td><textarea className='mt-3 text-center' id={`comment${completedTask._id}`}>{completedTask.comment}</textarea><br />{ }<button onClick={() => handleComment(completedTask._id)} className='ml-2 bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white my-2 px-2 border border-oreange-500 hover:border-transparent rounded'>Add comment</button></td>
+                                <td><textarea className='mt-3 text-center rounded-md' id={`comment${completedTask._id}`}>{completedTask.comment}</textarea><br />{ }<button onClick={() => handleComment(completedTask._id)} className='ml-2 bg-transparent hover:bg-orange-500 text-orange-700 font-semibold hover:text-white my-2 px-2 border border-oreange-500 hover:border-transparent rounded'>Add comment</button></td>
 
                             </tr>)
                         }
