@@ -60,6 +60,9 @@ const MyTasks = () => {
             })
 
     }
+    if (isLoading) {
+        return (<div>Loading...</div>)
+    }
     return (
         <div>
             <h3 className="text-3xl my-5">My Tasks</h3>
