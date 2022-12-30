@@ -1,8 +1,11 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const AddTask = () => {
+    const { user } = useContext(AuthContext)
     const { register, handleSubmit, reset } = useForm();
     const handleAddTask = (data) => {
         const imageHostKey = process.env.REACT_APP_imgbb_key
@@ -20,11 +23,13 @@ const AddTask = () => {
                     console.log(imgData.data.url)
                     const myTask = {
                         title: data.title,
+                        email: user.email,
                         image: imgData.data.url,
-                        description: data.description
+                        description: data.description,
+                        type: 'incomplete'
                     }
 
-                    fetch('https://my-task-server-three.vercel.app/mytasks', {
+                    fetch('http://localhost:5000/mytasks', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -41,7 +46,7 @@ const AddTask = () => {
             })
     }
     return (
-        <div className="w-1/2 my-10 mx-auto">
+        <div className="w-1/2 my-20 mx-auto">
             <form onSubmit={handleSubmit(handleAddTask)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
                     <label className="block text-left text-gray-700 text-sm font-bold mb-2" htmlFor="title">

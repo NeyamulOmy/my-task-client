@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const MyTasks = () => {
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext)
     const { data: myTasks, isLoading, refetch } = useQuery({
         queryKey: ['myTask'],
         queryFn: async () => {
             try {
-                const res = await fetch('https://my-task-server-three.vercel.app/mytasks', {
+                const res = await fetch(`http://localhost:5000/mytasks?email=${user.email}`, {
                     headers: {
 
                     }
@@ -20,32 +23,42 @@ const MyTasks = () => {
             }
         }
     });
+    const handleDelete = id => {
+
+        console.log(id)
+        fetch(`http://localhost:5000/mytasks/${id}`, {
+            method: 'DELETE',
+            headers: {
+
+            }
+        })
+            .then(res => {
+                res.json();
+
+            })
+            .then(data => {
+                refetch()
+
+            })
+
+    }
 
     // const myTasks = useLoaderData();
     const handleComplete = (myTask) => {
         const id = myTask._id;
-        fetch(`https://my-task-server-three.vercel.app/mytasks/${id}`, {
-            method: 'DELETE',
+
+        fetch(`http://localhost:5000/mytasks/${id}`, {
+            method: 'PUT',
             headers: {
 
             }
         })
             .then(res => res.json())
             .then(data => {
-                refetch()
+                refetch();
+                navigate('/Completed Tasks')
             })
-        fetch('https://my-task-server-three.vercel.app/completedtasks', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(myTask)
-        })
-            .then(res => res.json())
-            .then(result => {
-                console.log(result);
 
-            })
     }
     return (
         <div>
@@ -65,9 +78,13 @@ const MyTasks = () => {
                             myTasks.map((myTask, i) => <tr className='even:bg-white odd:bg-gray-200' key={myTask._id}>
                                 <th>{i + 1}</th>
                                 <td>{myTask.description}</td>
-                                <td><button onClick={() => handleComplete(myTask)} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white my-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                <td><button onClick={() => handleComplete(myTask)} className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white mr-2 my-2 px-2 border border-green-500 hover:border-transparent rounded">
                                     Complete
-                                </button></td>
+                                </button><button onClick={() => { navigate(`/updatetask/${myTask._id}`) }} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white mr-2 my-2 px-2 border border-blue-500 hover:border-transparent rounded">
+                                        Update
+                                    </button><button onClick={() => { handleDelete(myTask._id) }} className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white my-2 px-2 border border-red-500 hover:border-transparent rounded">
+                                        Delete
+                                    </button></td>
 
 
 

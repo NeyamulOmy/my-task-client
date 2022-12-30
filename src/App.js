@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import Signup from './components/pages/SignUp';
 import Login from './components/pages/Login';
 import PrivateRoute from './routes/PrivateRoute';
+import UpdateTask from './components/pages/UpdateTask';
 function App() {
   const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ function App() {
         {
           path: '/My Tasks',
           element: <PrivateRoute><MyTasks></MyTasks></PrivateRoute>,
-          // loader: () => fetch('https://my-task-server-three.vercel.app/mytasks')
+          // loader: () => fetch('http://localhost:5000/mytasks')
 
         },
         {
@@ -41,6 +42,11 @@ function App() {
         {
           path: '/login',
           element: <Login></Login>
+        },
+        {
+          path: '/updatetask/:id',
+          element: <UpdateTask></UpdateTask>,
+          loader: ({ params }) => fetch(`http://localhost:5000/mytasks/${params.id}`)
         }
       ]
     }

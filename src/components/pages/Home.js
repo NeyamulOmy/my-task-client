@@ -1,8 +1,10 @@
 import { Button, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Home = () => {
+    const { user } = useContext(AuthContext)
     const handleEnter = (event) => {
         if (event.key === 'Enter') {
             handleSubmit();
@@ -12,9 +14,11 @@ const Home = () => {
     const handleSubmit = () => {
         const task = document.getElementById('taskField').value;
         const myTask = {
-            description: task
+            email: user.email,
+            description: task,
+            type: 'incomplete'
         }
-        fetch('https://my-task-server-three.vercel.app/mytasks', {
+        fetch('http://localhost:5000/mytasks', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
